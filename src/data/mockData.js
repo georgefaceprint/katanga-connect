@@ -1,6 +1,8 @@
 export const exchangeRate = 2500; // 1 USD = 2500 CDF
 
 export const commonLocations = ["Lubumbashi", "Kolwezi", "Likasi", "Kipushi", "Kasumbalesa", "Kalemie", "Fungurume", "Mutshatsha", "Goma (via flight)"];
+export const allActivitiesAmenities = ["Wildlife Viewing", "Botanical Garden", "Guided Tours", "Hiking", "Waterfalls", "Camping", "Birdwatching", "Stadium Tour", "Quad Biking", "Cycling", "Fishing", "Local Food", "Crafts"];
+export const allHotelAmenities = ["Pool", "WiFi", "Gym", "Spa", "Restaurant", "AC", "Laundry", "Parking", "Meeting Rooms"];
 
 export const translations = {
   en: {

@@ -2,12 +2,13 @@ import React, { useState, useMemo } from 'react';
 import Header from './components/Header';
 import HotelCard from './components/HotelCard';
 import HistoricalCard from './components/HistoricalCard';
+import FilterSection from './components/FilterSection';
 import BookingPanel from './components/BookingPanel';
 import RevenueDashboard from './components/RevenueDashboard';
 import ProviderOnboarding from './components/ProviderOnboarding';
 import { useApp } from './context/AppContext';
-import { hotels, activities, weddings, restaurants, commonLocations, historicalSites } from './data/mockData';
-import { Search, Map, Calendar, ShieldCheck, MapPin, Grid, HeartPulse, Landmark } from 'lucide-react';
+import { hotels, activities, weddings, restaurants, commonLocations, historicalSites, allHotelAmenities, allActivitiesAmenities } from './data/mockData';
+import { Search, Map, Calendar, ShieldCheck, MapPin, Grid, HeartPulse, Landmark, SlidersHorizontal } from 'lucide-react';
 
 function App() {
   const [view, setView] = useState('portal'); // portal, admin, onboard
@@ -15,6 +16,15 @@ function App() {
   
   const [searchCity, setSearchCity] = useState('');
   const [searchAmenity, setSearchAmenity] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+  
+  const [filters, setFilters] = useState({
+    minPrice: 0,
+    maxPrice: 10000,
+    minRating: 0,
+    sortBy: 'default',
+    amenities: []
+  });
 
   const { t, activeCategory, setActiveCategory } = useApp();
 
@@ -31,19 +41,49 @@ function App() {
   }, [activeCategory]);
 
   const filteredItems = useMemo(() => {
-    return activeData.filter(item => {
+    let result = activeData.filter(item => {
       // Location & Proximity search
       const matchesCity = searchCity === '' || 
         item.city.toLowerCase().includes(searchCity.toLowerCase()) || 
         (item.proximity && item.proximity.some(p => p.toLowerCase().includes(searchCity.toLowerCase())));
       
-      // Amenities search
-      const matchesAmenity = searchAmenity === '' || 
-        item.amenities.some(a => a.toLowerCase().includes(searchAmenity.toLowerCase()));
+      // Keywords/Amenities search (from main bar)
+      const matchesKeyword = searchAmenity === '' || 
+        item.amenities.some(a => a.toLowerCase().includes(searchAmenity.toLowerCase())) ||
+        item.name.toLowerCase().includes(searchAmenity.toLowerCase());
 
-      return matchesCity && matchesAmenity && item.status === 'Approved';
+      // Status
+      const isApproved = item.status === 'Approved';
+
+      // Advanced Filters
+      const price = item.priceUSD || (item.rooms && Math.min(...item.rooms.map(r => r.priceUSD))) || 0;
+      const matchesPrice = price >= filters.minPrice && price <= filters.maxPrice;
+      const matchesRating = !item.rating || item.rating >= filters.minRating;
+      const matchesSelectedAmenities = filters.amenities.length === 0 || 
+        filters.amenities.every(a => item.amenities.includes(a));
+
+      return matchesCity && matchesKeyword && isApproved && matchesPrice && matchesRating && matchesSelectedAmenities;
     });
-  }, [activeData, searchCity, searchAmenity]);
+
+    // Sorting
+    if (filters.sortBy === 'price-low') {
+      result.sort((a, b) => {
+        const priceA = a.priceUSD || (a.rooms && Math.min(...a.rooms.map(r => r.priceUSD))) || 0;
+        const priceB = b.priceUSD || (b.rooms && Math.min(...b.rooms.map(r => r.priceUSD))) || 0;
+        return priceA - priceB;
+      });
+    } else if (filters.sortBy === 'price-high') {
+      result.sort((a, b) => {
+        const priceA = a.priceUSD || (a.rooms && Math.min(...a.rooms.map(r => r.priceUSD))) || 0;
+        const priceB = b.priceUSD || (b.rooms && Math.min(...b.rooms.map(r => r.priceUSD))) || 0;
+        return priceB - priceA;
+      });
+    } else if (filters.sortBy === 'rating-high') {
+      result.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    }
+
+    return result;
+  }, [activeData, searchCity, searchAmenity, filters]);
 
   return (
     <div className="app-container">
@@ -96,12 +136,33 @@ function App() {
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0 1rem', flex: 1, borderRight: '1px solid var(--glass-border)' }}>
                    <Grid size={20} color="var(--secondary)" />
-                   <input type="text" value={searchAmenity} onChange={(e) => setSearchAmenity(e.target.value)} placeholder={t('amenities') + " (e.g. WiFi, Pool)"} style={{ background: 'none', border: 'none', color: 'var(--text-primary)', width: '100%', outline: 'none' }} />
+                    <input type="text" value={searchAmenity} onChange={(e) => setSearchAmenity(e.target.value)} placeholder={t('searchPlaceholder') || "Find hotels, activities..."} style={{ background: 'none', border: 'none', color: 'var(--text-primary)', width: '100%', outline: 'none' }} />
                 </div>
-                <button className="btn btn-primary" style={{ borderRadius: '40px', padding: '1rem 2rem' }}>
-                  <Search size={18} /> {t('bookNow')}
-                </button>
+                <div style={{ padding: '0 1rem', display: 'flex', gap: '0.5rem' }}>
+                  <button 
+                    onClick={() => setShowFilters(!showFilters)}
+                    className={`btn ${showFilters ? 'btn-primary' : 'btn-secondary'}`}
+                    style={{ borderRadius: '50%', padding: '0.8rem', width: '45px', height: '45px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  >
+                    <SlidersHorizontal size={20} />
+                  </button>
+                  <button className="btn btn-primary" style={{ borderRadius: '40px', padding: '0.8rem 2rem' }}>
+                    <Search size={18} /> {t('search') || 'Search'}
+                  </button>
+                </div>
               </div>
+
+              {/* Advanced Filter Section */}
+              {showFilters && (
+                <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+                  <FilterSection 
+                    onClose={() => setShowFilters(false)}
+                    filters={filters}
+                    setFilters={setFilters}
+                    availableAmenities={activeCategory === 'stays' ? allHotelAmenities : allActivitiesAmenities}
+                  />
+                </div>
+              )}
             </div>
           </section>
 
@@ -109,7 +170,12 @@ function App() {
           <section className="container" style={{ padding: '4rem 0' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3rem' }}>
               <div>
-                <h2 style={{ fontSize: '2.5rem' }}>{t(activeCategory)}</h2>
+                <h2 style={{ fontSize: '2.5rem' }}>
+                  {t(activeCategory)}
+                  <span style={{ fontSize: '1rem', color: 'var(--text-secondary)', marginLeft: '1rem', fontWeight: '400' }}>
+                    ({filteredItems.length} {t('results') || 'results'})
+                  </span>
+                </h2>
                 <div style={{ height: '4px', width: '60px', background: 'var(--secondary)', marginTop: '0.5rem' }}></div>
               </div>
               <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
