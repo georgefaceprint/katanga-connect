@@ -208,6 +208,104 @@ export const activities = [
     },
     amenities: ["Music", "Food Stalls", "Art Exhibits"],
     status: "Approved"
+  },
+  {
+    id: 103,
+    name: "Lubumbashi Zoo & Botanical Gardens",
+    city: "Lubumbashi",
+    proximity: ["City Center"],
+    priceUSD: 10,
+    image: "https://images.unsplash.com/photo-1544979590-37e9747eb9e6?auto=format&fit=crop&q=80&w=1000",
+    description: {
+      en: "Features a wide range of African wildlife, including lions and giraffes, within a 30-hectare wooded park.",
+      fr: "Présente une grande variété de faune africaine, notamment des lions et des girafes, dans un parc boisé de 30 hectares."
+    },
+    amenities: ["Wildlife Viewing", "Botanical Garden", "Guided Tours"],
+    status: "Approved"
+  },
+  {
+    id: 104,
+    name: "J.A.C.K. Primate Rehabilitation Centre",
+    city: "Lubumbashi",
+    proximity: ["Zoo"],
+    priceUSD: 15,
+    image: "https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&q=80&w=1000",
+    description: {
+      en: "A sanctuary dedicated to the rehabilitation of primates confiscated in Katanga. Learn about conservation efforts.",
+      fr: "Un sanctuaire dédié à la réhabilitation des primates confisqués au Katanga. Découvrez les efforts de conservation."
+    },
+    amenities: ["Primate Sanctuary", "Education Center", "Souvenir Shop"],
+    status: "Approved"
+  },
+  {
+    id: 105,
+    name: "Kundelungu National Park",
+    city: "Lubumbashi",
+    proximity: ["North Katanga"],
+    priceUSD: 40,
+    image: "https://images.unsplash.com/photo-1433086466340-b770de85e348?auto=format&fit=crop&q=80&w=1000",
+    description: {
+      en: "Popular for hiking, exploring spectacular waterfalls, and observing wildlife in its natural habitat.",
+      fr: "Populaire pour la randonnée, l'exploration de cascades spectaculaires et l'observation de la faune."
+    },
+    amenities: ["Hiking", "Waterfalls", "Camping", "Birdwatching"],
+    status: "Approved"
+  },
+  {
+    id: 106,
+    name: "Stade Tout Puissant Mazembe",
+    city: "Lubumbashi",
+    proximity: ["Commune de Kamalondo"],
+    priceUSD: 5,
+    image: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&q=80&w=1000",
+    description: {
+      en: "Visit the home stadium of the world-renowned TP Mazembe football team. Tour the facilities.",
+      fr: "Visitez le stade du TP Mazembe, équipe de football de renommée mondiale. Visitez les installations."
+    },
+    amenities: ["Stadium Tour", "Sports Shop", "Fan Zone"],
+    status: "Approved"
+  },
+  {
+    id: 107,
+    name: "Kafubu River Lodge Activities",
+    city: "Lubumbashi",
+    proximity: ["Kafubu River"],
+    priceUSD: 45,
+    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=1000",
+    description: {
+      en: "Offers quad biking, cycling, and fishing at the beautiful confluence of the Kiswishi and Kafubu rivers.",
+      fr: "Propose du quad, du vélo et de la pêche au magnifique confluent des rivières Kiswishi et Kafubu."
+    },
+    amenities: ["Quad Biking", "Cycling", "Fishing", "Riverside Dining"],
+    status: "Approved"
+  },
+  {
+    id: 108,
+    name: "Lake Tshangalele Fishing",
+    city: "Likasi",
+    proximity: ["Likasi"],
+    priceUSD: 20,
+    image: "https://images.unsplash.com/photo-1512466699224-9d91577a1e3f?auto=format&fit=crop&q=80&w=1000",
+    description: {
+      en: "Enjoy a day of peaceful fishing at Lake Tshangalele. Boat rentals available.",
+      fr: "Profitez d'une journée de pêche paisible au lac Tshangalele. Location de bateaux disponible."
+    },
+    amenities: ["Fishing", "Boat Rental", "Picnic Area"],
+    status: "Approved"
+  },
+  {
+    id: 109,
+    name: "Marché De La Rwashi",
+    city: "Lubumbashi",
+    proximity: ["Rwashi"],
+    priceUSD: 0,
+    image: "https://images.unsplash.com/photo-1488459733480-87002047a07a?auto=format&fit=crop&q=80&w=1000",
+    description: {
+      en: "Experience the vibrant heart of local commerce. A bustling market full of authentic Katangan life.",
+      fr: "Découvrez le cœur vibrant du commerce local. Un marché animé plein de vie katangaise authentique."
+    },
+    amenities: ["Local Food", "Crafts", "Cultural Experience"],
+    status: "Approved"
   }
 ];
 
@@ -343,6 +441,57 @@ export const historicalSites = [
     whyVisit: {
       en: "Admire the stunning architecture and peaceful atmosphere. It's a key part of the city's religious and architectural heritage.",
       fr: "Admirez l'architecture époustouflante et l'atmosphère paisible. C'est un élément clé du patrimoine religieux et architectural de la ville."
+    },
+    status: "Approved"
+  },
+  {
+    id: 405,
+    name: "Monument de l'identité Katangaise",
+    city: "Lubumbashi",
+    proximity: ["City Roundabout"],
+    rating: 4,
+    image: "https://images.unsplash.com/photo-1518391846015-55a9cc003b25?auto=format&fit=crop&q=80&w=1000",
+    history: {
+      en: "An iconic monument celebrating the local identity and pride of the Katangan people, located at a bustling city intersection.",
+      fr: "Un monument emblématique célébrant l'identité locale et la fierté du peuple katangais."
+    },
+    whyVisit: {
+      en: "A must-see landmark for understanding the local spirit and catching the pulse of the city.",
+      fr: "Un monument incontournable pour comprendre l'esprit local et prendre le pouls de la ville."
+    },
+    status: "Approved"
+  },
+  {
+    id: 406,
+    name: "Galerie d'Art Contemporain (Lubumbashi)",
+    city: "Lubumbashi",
+    proximity: ["City Center"],
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1518998053502-bd6cc7f11e9b?auto=format&fit=crop&q=80&w=1000",
+    history: {
+      en: "Showcases a curated selection of contemporary local and regional art. A hub for modern Congolese creativity.",
+      fr: "Présente une sélection d'art contemporain local et régional. Un pôle de créativité congolaise moderne."
+    },
+    whyVisit: {
+      en: "Explore the cutting edge of Katangan art and meet local artists.",
+      fr: "Explorez l'art katangais d'avant-garde et rencontrez des artistes locaux."
+    },
+    status: "Approved"
+  },
+  {
+    id: 407,
+    name: "Terril of Lubumbashi",
+    city: "Lubumbashi",
+    proximity: ["Industrial Area"],
+    rating: 4,
+    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=1000",
+    history: {
+      en: "A massive man-made mountain of copper-cobalt slag, representing a century of industrial output from the nearby smelter.",
+      fr: "Une montagne artificielle massive de scories de cuivre-cobalt, représentant un siècle de production industrielle."
+    },
+    whyVisit: {
+      en: "The most unique skyline feature in Lubumbashi. A surreal witness to the scale of global mining operations.",
+      fr: "La caractéristique la plus unique de l'horizon de Lubumbashi. Un témoin irréel de l'ampleur des opérations minières."
     },
     status: "Approved"
   }
