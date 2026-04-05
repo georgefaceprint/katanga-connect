@@ -6,6 +6,7 @@ import FilterSection from './components/FilterSection';
 import BookingPanel from './components/BookingPanel';
 import RevenueDashboard from './components/RevenueDashboard';
 import ProviderOnboarding from './components/ProviderOnboarding';
+import TshumaChatbot from './components/TshumaChatbot';
 import { useApp } from './context/AppContext';
 import { hotels, activities, weddings, restaurants, commonLocations, historicalSites, allHotelAmenities, allActivitiesAmenities } from './data/mockData';
 import { Search, Map, Calendar, ShieldCheck, MapPin, Grid, HeartPulse, Landmark, SlidersHorizontal, X } from 'lucide-react';
@@ -248,6 +249,8 @@ function App() {
           onClose={() => setSelectedHotel(null)} 
         />
       )}
+
+      <TshumaChatbot />
 
     </div>
   );
