@@ -5,10 +5,21 @@ import { ShieldCheck, Upload, CheckCircle2 } from 'lucide-react';
 const ProviderOnboarding = ({ setView }) => {
   const { lang, t } = useApp();
   const [submitted, setSubmitted] = useState(false);
+  const [type, setType] = useState('hotel');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
+  };
+
+  const getCapacityLabel = () => {
+    switch (type) {
+      case 'car': return t('fleetSize');
+      case 'resto': return t('seatingCapacity');
+      case 'wedding': return t('capacity') + " (Attendees)";
+      case 'tour': return t('capacity') + " (Group Size)";
+      default: return t('capacity') + " (Beds)";
+    }
   };
 
   return (
@@ -33,7 +44,7 @@ const ProviderOnboarding = ({ setView }) => {
               <ShieldCheck size={48} color="var(--secondary)" style={{ margin: '0 auto 1rem' }} />
               <h2>{t('onboardNav')}</h2>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '0.5rem' }}>
-                Join the Katanga Destination Ecosystem. Mandated for all Lodges, Mine Tour Companies, and Event Venues to ensure tax compliance.
+                Join the Katanga Destination Ecosystem. Mandated for all Lodges, Restaurants, Tour Operators, and Car Hire Companies.
               </p>
             </div>
 
@@ -46,10 +57,16 @@ const ProviderOnboarding = ({ setView }) => {
 
               <div>
                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Facility Type</label>
-                <select style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--glass-border)', background: 'var(--bg-light)', outline: 'none', color: 'var(--text-primary)' }}>
-                  <option>Accommodation (Hotel / BnB)</option>
-                  <option>Tour Company (Mine / Heritage)</option>
-                  <option>Event/Wedding Venue</option>
+                <select 
+                  value={type} 
+                  onChange={(e) => setType(e.target.value)}
+                  style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--glass-border)', background: 'var(--bg-light)', outline: 'none', color: 'var(--text-primary)' }}
+                >
+                  <option value="hotel">{t('typeHotel')}</option>
+                  <option value="tour">{t('typeTour')}</option>
+                  <option value="wedding">{t('typeWedding')}</option>
+                  <option value="resto">{t('typeResto')}</option>
+                  <option value="car">{t('typeCar')}</option>
                 </select>
               </div>
 
@@ -59,7 +76,7 @@ const ProviderOnboarding = ({ setView }) => {
               </div>
 
               <div>
-                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Expected Capacity (Beds / Attendees)</label>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>{getCapacityLabel()}</label>
                 <input required type="number" placeholder="0" style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--glass-border)', background: 'rgba(0,0,0,0.02)', outline: 'none', color: 'var(--text-primary)' }} />
               </div>
 

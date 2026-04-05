@@ -48,7 +48,14 @@ export const translations = {
     minRating: "Min Rating",
     sortBy: "Sort By",
     results: "results",
-    search: "Search"
+    search: "Search",
+    typeHotel: "Accommodation (Hotel / BnB)",
+    typeTour: "Tour Operator (Mine / Heritage)",
+    typeWedding: "Event / Wedding Venue",
+    typeResto: "Restaurant / Dining",
+    typeCar: "Car Hire / Transport",
+    fleetSize: "Fleet Size (Vehicles)",
+    seatingCapacity: "Seating Capacity"
   },
   fr: {
     portalTitle: "Portail Destination Katanga",
@@ -93,7 +100,14 @@ export const translations = {
     minRating: "Note Min",
     sortBy: "Trier par",
     results: "résultats",
-    search: "Rechercher"
+    search: "Rechercher",
+    typeHotel: "Hébergement (Hôtel / BnB)",
+    typeTour: "Opérateur Touristique (Mines / Patrimoine)",
+    typeWedding: "Lieu d'Événement / Mariage",
+    typeResto: "Restaurant / Gastronomie",
+    typeCar: "Location de Voitures / Transport",
+    fleetSize: "Taille de la Flotte (Véhicules)",
+    seatingCapacity: "Capacité d'Accueil"
   }
 };
 
