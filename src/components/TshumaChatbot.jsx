@@ -68,7 +68,7 @@ const TshumaChatbot = () => {
       {/* Floating Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="btn btn-primary"
+        className="btn"
         style={{ 
           width: '60px', 
           height: '60px', 
@@ -77,11 +77,15 @@ const TshumaChatbot = () => {
           display: 'flex', 
           alignItems: 'center', 
           justifyContent: 'center',
-          boxShadow: '0 8px 32px rgba(22, 163, 74, 0.4)',
-          transition: 'transform 0.3s'
+          background: 'linear-gradient(135deg, #007FFF 0%, #CE1126 100%)',
+          color: 'white',
+          boxShadow: '0 8px 32px rgba(0, 127, 255, 0.4)',
+          border: '2px solid #FFD700',
+          transition: 'transform 0.3s',
+          cursor: 'pointer'
         }}
       >
-        {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
+        {isOpen ? <X size={24} /> : <div style={{ position: 'relative' }}><MessageSquare size={24} /><div style={{ position: 'absolute', top: '-10px', right: '-10px', color: '#FFD700' }}>★</div></div>}
       </button>
 
       {/* Chat Window */}
@@ -96,37 +100,62 @@ const TshumaChatbot = () => {
           flexDirection: 'column', 
           borderRadius: '24px',
           overflow: 'hidden',
-          boxShadow: '0 12px 48px rgba(0,0,0,0.2)',
-          border: '1px solid var(--glass-border)'
+          boxShadow: '0 12px 48px rgba(0,0,0,0.3)',
+          border: '1px solid rgba(255, 215, 0, 0.3)',
+          background: 'rgba(0, 127, 255, 0.1)',
+          backdropFilter: 'blur(20px)'
         }}>
-          {/* Header */}
-          <div style={{ padding: '1.2rem', background: 'var(--primary)', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-              <div style={{ width: '32px', height: '32px', background: 'rgba(255,255,255,0.2)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                🌟
+          {/* Header with Congo Flag Look */}
+          <div style={{ 
+            padding: '1.2rem', 
+            background: '#007FFF', 
+            position: 'relative',
+            overflow: 'hidden',
+            color: 'white', 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center' 
+          }}>
+            {/* Red Diagonal Stripe */}
+            <div style={{ 
+                position: 'absolute', 
+                top: 0, 
+                left: 0, 
+                width: '200%', 
+                height: '100%', 
+                background: 'linear-gradient(135deg, transparent 45%, #FFD700 45%, #FFD700 47%, #CE1126 47%, #CE1126 53%, #FFD700 53%, #FFD700 55%, transparent 55%)',
+                opacity: 0.8,
+                pointerEvents: 'none'
+            }}></div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', position: 'relative', zIndex: 1 }}>
+              <div style={{ width: '32px', height: '32px', background: 'rgba(255,255,255,0.2)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #FFD700' }}>
+                <span style={{ color: '#FFD700', fontSize: '1.2rem' }}>★</span>
               </div>
               <div>
-                <div style={{ fontWeight: 'bold' }}>Tshuma AI</div>
-                <div style={{ fontSize: '0.7rem', opacity: 0.8 }}>Katanga Global Guide</div>
+                <div style={{ fontWeight: 'bold', textShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>Tshuma AI</div>
+                <div style={{ fontSize: '0.7rem', opacity: 0.9 }}>Fierement Congolais</div>
               </div>
             </div>
-            <button onClick={resetChat} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }} title="Reset">
+            <button onClick={resetChat} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', position: 'relative', zIndex: 1 }} title="Reset">
               <RotateCcw size={18} />
             </button>
           </div>
 
           {/* Messages */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem', background: 'rgba(255,255,255,0.02)' }}>
             {messages.map((m, i) => (
               <div key={i} style={{ 
                 alignSelf: m.sender === 'user' ? 'flex-end' : 'flex-start',
                 maxWidth: '85%',
                 padding: '0.8rem 1rem',
                 borderRadius: m.sender === 'user' ? '18px 18px 2px 18px' : '18px 18px 18px 2px',
-                background: m.sender === 'user' ? 'var(--primary)' : 'rgba(255,255,255,0.08)',
-                color: m.sender === 'user' ? 'white' : 'var(--text-primary)',
+                background: m.sender === 'user' ? '#007FFF' : 'rgba(255,255,255,0.1)',
+                color: 'white',
                 fontSize: '0.9rem',
-                lineHeight: '1.4'
+                lineHeight: '1.4',
+                border: m.sender === 'user' ? '1px solid rgba(255,215,0,0.5)' : '1px solid rgba(255,255,255,0.1)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
               }}>
                 {m.text}
               </div>
@@ -135,7 +164,7 @@ const TshumaChatbot = () => {
           </div>
 
           {/* Suggestion Chips */}
-          <div style={{ padding: '0.5rem 1rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', borderTop: '1px solid var(--glass-border)' }}>
+          <div style={{ padding: '0.5rem 1rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', borderTop: '1px solid rgba(255,215,0,0.2)', background: 'rgba(0,0,0,0.05)' }}>
              {data.suggestions.map((s, i) => (
                <button 
                   key={i} 
@@ -144,11 +173,14 @@ const TshumaChatbot = () => {
                     fontSize: '0.7rem', 
                     padding: '0.4rem 0.8rem', 
                     borderRadius: '20px', 
-                    border: '1px solid var(--glass-border)', 
-                    background: 'rgba(255,255,255,0.05)', 
-                    color: 'var(--text-secondary)',
-                    cursor: 'pointer'
+                    border: '1px solid rgba(255,215,0,0.3)', 
+                    background: 'rgba(0, 127, 255, 0.1)', 
+                    color: '#FFD700',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
                   }}
+                  onMouseOver={(e) => e.target.style.background = 'rgba(0, 127, 255, 0.3)'}
+                  onMouseOut={(e) => e.target.style.background = 'rgba(0, 127, 255, 0.1)'}
                >
                  {s}
                </button>
