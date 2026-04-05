@@ -8,7 +8,7 @@ import RevenueDashboard from './components/RevenueDashboard';
 import ProviderOnboarding from './components/ProviderOnboarding';
 import { useApp } from './context/AppContext';
 import { hotels, activities, weddings, restaurants, commonLocations, historicalSites, allHotelAmenities, allActivitiesAmenities } from './data/mockData';
-import { Search, Map, Calendar, ShieldCheck, MapPin, Grid, HeartPulse, Landmark, SlidersHorizontal } from 'lucide-react';
+import { Search, Map, Calendar, ShieldCheck, MapPin, Grid, HeartPulse, Landmark, SlidersHorizontal, X } from 'lucide-react';
 
 function App() {
   const [view, setView] = useState('portal'); // portal, admin, onboard
@@ -92,22 +92,32 @@ function App() {
       {view === 'portal' ? (
         <main>
           {/* Header Navigation for Categories */}
-          <section className="container" style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1rem', marginBottom: '1rem' }}>
-             <button onClick={() => setActiveCategory('stays')} className={`btn ${activeCategory === 'stays' ? 'btn-primary' : 'btn-secondary'}`}>
-                <Building2Icon size={18} /> {t('stays')}
-             </button>
-             <button onClick={() => setActiveCategory('activities')} className={`btn ${activeCategory === 'activities' ? 'btn-primary' : 'btn-secondary'}`}>
-                <MapPin size={18} /> {t('activities')}
-             </button>
-             <button onClick={() => setActiveCategory('weddings')} className={`btn ${activeCategory === 'weddings' ? 'btn-primary' : 'btn-secondary'}`}>
-                <HeartPulse size={18} /> {t('weddings')}
-             </button>
-             <button onClick={() => setActiveCategory('restaurants')} className={`btn ${activeCategory === 'restaurants' ? 'btn-primary' : 'btn-secondary'}`}>
-                <UtensilsIcon size={18} /> {t('restaurants')}
-             </button>
-             <button onClick={() => setActiveCategory('historicalSites')} className={`btn ${activeCategory === 'historicalSites' ? 'btn-primary' : 'btn-secondary'}`}>
-                <Landmark size={18} /> {t('historicalSites')}
-             </button>
+          <section className="container" style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+             {[
+               { id: 'stays', icon: <Building2Icon size={18} />, label: t('stays') },
+               { id: 'activities', icon: <MapPin size={18} />, label: t('activities') },
+               { id: 'weddings', icon: <HeartPulse size={18} />, label: t('weddings') },
+               { id: 'restaurants', icon: <UtensilsIcon size={18} />, label: t('restaurants') },
+               { id: 'historicalSites', icon: <Landmark size={18} />, label: t('historicalSites') }
+             ].map(cat => (
+               <button 
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)} 
+                className={`btn ${activeCategory === cat.id ? 'btn-primary' : 'btn-secondary'}`}
+                style={{ 
+                  borderRadius: '12px', 
+                  padding: '0.8rem 1.5rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  border: activeCategory === cat.id ? 'none' : '1px solid var(--glass-border)',
+                  boxShadow: activeCategory === cat.id ? '0 4px 15px rgba(22, 163, 74, 0.3)' : 'none',
+                  transition: 'all 0.3s ease'
+                }}
+               >
+                  {cat.icon} {cat.label}
+               </button>
+             ))}
           </section>
 
           {/* Hero Section */}
@@ -138,7 +148,21 @@ function App() {
                    <Grid size={20} color="var(--secondary)" />
                     <input type="text" value={searchAmenity} onChange={(e) => setSearchAmenity(e.target.value)} placeholder={t('searchPlaceholder') || "Find hotels, activities..."} style={{ background: 'none', border: 'none', color: 'var(--text-primary)', width: '100%', outline: 'none' }} />
                 </div>
-                <div style={{ padding: '0 1rem', display: 'flex', gap: '0.5rem' }}>
+                 <div style={{ padding: '0 1rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                  {(searchCity || searchAmenity || filters.amenities.length > 0 || filters.minRating > 0 || filters.minPrice > 0 || filters.maxPrice < 10000) && (
+                    <button 
+                      onClick={() => {
+                        setSearchCity('');
+                        setSearchAmenity('');
+                        setFilters({ minPrice: 0, maxPrice: 10000, minRating: 0, sortBy: 'default', amenities: [] });
+                      }}
+                      className="btn btn-secondary"
+                      style={{ borderRadius: '50%', width: '40px', height: '40px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                      title="Reset All"
+                    >
+                      <X size={18} />
+                    </button>
+                  )}
                   <button 
                     onClick={() => setShowFilters(!showFilters)}
                     className={`btn ${showFilters ? 'btn-primary' : 'btn-secondary'}`}
@@ -191,8 +215,21 @@ function App() {
                   :
                   <HotelCard key={item.id} hotel={item} onBook={setSelectedHotel} category={activeCategory} />
               )) : (
-                <div style={{ padding: '2rem', textAlign: 'center', gridColumn: '1 / -1', color: 'var(--text-secondary)' }}>
-                  No active listings found.
+                <div style={{ padding: '4rem 2rem', textAlign: 'center', gridColumn: '1 / -1', border: '1px dashed var(--glass-border)', borderRadius: '20px' }}>
+                  <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', fontSize: '1.2rem' }}>
+                    No active listings found matching your criteria.
+                  </p>
+                  <button 
+                    className="btn btn-primary" 
+                    style={{ borderRadius: '30px', padding: '0.8rem 2rem' }}
+                    onClick={() => {
+                       setSearchCity('');
+                       setSearchAmenity('');
+                       setFilters({ minPrice: 0, maxPrice: 10000, minRating: 0, sortBy: 'default', amenities: [] });
+                    }}
+                  >
+                    Clear all filters
+                  </button>
                 </div>
               )}
             </div>
