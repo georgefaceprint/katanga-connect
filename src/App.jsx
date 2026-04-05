@@ -2,13 +2,14 @@ import React, { useState, useMemo } from 'react';
 import Header from './components/Header';
 import HotelCard from './components/HotelCard';
 import HistoricalCard from './components/HistoricalCard';
+import CarHireCard from './components/CarHireCard';
 import FilterSection from './components/FilterSection';
 import BookingPanel from './components/BookingPanel';
 import RevenueDashboard from './components/RevenueDashboard';
 import ProviderOnboarding from './components/ProviderOnboarding';
 import TshumaChatbot from './components/TshumaChatbot';
 import { useApp } from './context/AppContext';
-import { hotels, activities, weddings, restaurants, commonLocations, historicalSites, allHotelAmenities, allActivitiesAmenities } from './data/mockData';
+import { hotels, activities, weddings, restaurants, commonLocations, historicalSites, allHotelAmenities, allActivitiesAmenities, allCarAmenities, carHire } from './data/mockData';
 import { Search, Map, Calendar, ShieldCheck, MapPin, Grid, HeartPulse, Landmark, SlidersHorizontal, X } from 'lucide-react';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
       case 'weddings': return weddings;
       case 'restaurants': return restaurants;
       case 'historicalSites': return historicalSites;
+      case 'carHire': return carHire;
       default: return hotels;
     }
   }, [activeCategory]);
@@ -99,7 +101,8 @@ function App() {
                { id: 'activities', icon: <MapPin size={18} />, label: t('activities') },
                { id: 'weddings', icon: <HeartPulse size={18} />, label: t('weddings') },
                { id: 'restaurants', icon: <UtensilsIcon size={18} />, label: t('restaurants') },
-               { id: 'historicalSites', icon: <Landmark size={18} />, label: t('historicalSites') }
+               { id: 'historicalSites', icon: <Landmark size={18} />, label: t('historicalSites') },
+               { id: 'carHire', icon: <CarIcon size={18} />, label: t('carHire') }
              ].map(cat => (
                <button 
                 key={cat.id}
@@ -184,7 +187,7 @@ function App() {
                     onClose={() => setShowFilters(false)}
                     filters={filters}
                     setFilters={setFilters}
-                    availableAmenities={activeCategory === 'stays' ? allHotelAmenities : allActivitiesAmenities}
+                    availableAmenities={activeCategory === 'stays' ? allHotelAmenities : (activeCategory === 'carHire' ? allCarAmenities : allActivitiesAmenities)}
                   />
                 </div>
               )}
@@ -213,6 +216,9 @@ function App() {
               {filteredItems.length > 0 ? filteredItems.map(item => (
                 activeCategory === 'historicalSites' ? 
                   <HistoricalCard key={item.id} site={item} />
+                  :
+                  activeCategory === 'carHire' ?
+                  <CarHireCard key={item.id} car={item} onBook={setSelectedHotel} />
                   :
                   <HotelCard key={item.id} hotel={item} onBook={setSelectedHotel} category={activeCategory} />
               )) : (
@@ -250,7 +256,10 @@ function App() {
         />
       )}
 
-      <TshumaChatbot />
+      <TshumaChatbot onBook={(item, category) => {
+        setActiveCategory(category);
+        setSelectedHotel(item);
+      }} />
 
     </div>
   );
@@ -263,6 +272,10 @@ function Building2Icon(props) {
 
 function UtensilsIcon(props) {
   return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg>;
+}
+
+function CarIcon(props) {
+  return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle><path d="M13 17h-2"></path><path d="M7 17H5"></path></svg>;
 }
 
 export default App;

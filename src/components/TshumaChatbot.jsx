@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../context/AppContext';
 import { chatbotData, getDistance } from '../data/chatbotData';
-import { MessageSquare, X, Send, RotateCcw, Trash2, MapPin } from 'lucide-react';
+import { hotels, activities, weddings, restaurants, carHire } from '../data/mockData';
+import { MessageSquare, X, Send, RotateCcw, Trash2, MapPin, ExternalLink } from 'lucide-react';
 
-const TshumaChatbot = () => {
+const TshumaChatbot = ({ onBook }) => {
   const { lang, t } = useApp();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -33,30 +34,58 @@ const TshumaChatbot = () => {
 
     // Process Bot Response
     setTimeout(() => {
-      const botResponse = processQuery(text);
-      setMessages([...newMessages, { sender: 'bot', text: botResponse }]);
+      const response = processQuery(text);
+      setMessages([...newMessages, { sender: 'bot', ...response }]);
     }, 600);
   };
 
   const processQuery = (query) => {
     const q = query.toLowerCase();
 
-    // Distance Logic
-    const distance = getDistance(q);
-    if (distance) {
-      return lang === 'en' 
-        ? `The estimated distance from Lubumbashi City Center is about ${distance}.` 
-        : `La distance estimée depuis le centre-ville de Lubumbashi est d'environ ${distance}.`;
-    }
+    // 1. Check for Booking Intent
+    const bookingKeywords = ['book', 'reserve', 'louer', 'réserver', 'commander'];
+    const isBookingIntent = bookingKeywords.some(k => q.includes(k));
 
-    // Intent Logic (Keywords)
-    for (const intent of data.intents) {
-      if (intent.keywords.some(k => q.includes(k))) {
-        return intent.answer;
+    if (isBookingIntent) {
+      const allCategories = [
+        { data: hotels, cat: 'stays' },
+        { data: activities, cat: 'activities' },
+        { data: weddings, cat: 'weddings' },
+        { data: restaurants, cat: 'restaurants' },
+        { data: carHire, cat: 'carHire' }
+      ];
+
+      for (const group of allCategories) {
+        const match = group.data.find(item => q.includes(item.name.toLowerCase()));
+        if (match) {
+          return {
+            text: lang === 'en' 
+              ? `I found ${match.name}! Would you like to proceed with the booking?`
+              : `J'ai trouvé ${match.name} ! Souhaitez-vous procéder à la réservation ?`,
+            action: { label: t('confirmBooking') || 'Book Now', item: match, category: group.cat }
+          };
+        }
       }
     }
 
-    return data.noMatch;
+    // 2. Distance Logic
+    const distance = getDistance(q);
+    if (distance) {
+      return {
+        text: lang === 'en' 
+          ? `The estimated distance from Lubumbashi City Center is about ${distance}.` 
+          : `La distance estimée depuis le centre-ville de Lubumbashi est d'environ ${distance}.`
+      };
+    }
+
+    // 3. Intent Logic (Keywords)
+    for (const intent of data.intents) {
+      if (intent.keywords.some(k => q.includes(k))) {
+        return { text: intent.answer };
+      }
+    }
+
+    return { text: data.noMatch };
   };
 
   const resetChat = () => {
@@ -143,28 +172,43 @@ const TshumaChatbot = () => {
           </div>
 
           {/* Messages */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem', background: 'rgba(255,255,255,0.02)' }}>
+          <div style={{ flex: 1, overflowY: 'auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem', background: 'rgba(255,255,255,0.1)' }}>
             {messages.map((m, i) => (
               <div key={i} style={{ 
                 alignSelf: m.sender === 'user' ? 'flex-end' : 'flex-start',
                 maxWidth: '85%',
-                padding: '0.8rem 1rem',
-                borderRadius: m.sender === 'user' ? '18px 18px 2px 18px' : '18px 18px 18px 2px',
-                background: m.sender === 'user' ? '#007FFF' : 'rgba(255,255,255,0.1)',
-                color: 'white',
-                fontSize: '0.9rem',
-                lineHeight: '1.4',
-                border: m.sender === 'user' ? '1px solid rgba(255,215,0,0.5)' : '1px solid rgba(255,255,255,0.1)',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.4rem'
               }}>
-                {m.text}
+                <div style={{ 
+                    padding: '0.8rem 1rem',
+                    borderRadius: m.sender === 'user' ? '18px 18px 2px 18px' : '18px 18px 18px 2px',
+                    background: m.sender === 'user' ? '#007FFF' : 'white',
+                    color: m.sender === 'user' ? 'white' : 'black',
+                    fontSize: '0.9rem',
+                    lineHeight: '1.4',
+                    border: m.sender === 'user' ? '1px solid rgba(255,215,0,0.5)' : '1px solid rgba(0,0,0,0.1)',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                }}>
+                    {m.text}
+                </div>
+                {m.action && (
+                  <button 
+                    onClick={() => onBook(m.action.item, m.action.category)}
+                    className="btn btn-primary"
+                    style={{ fontSize: '0.75rem', padding: '0.4rem 0.8rem', borderRadius: '10px', alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+                  >
+                    <ExternalLink size={14} /> {m.action.label}
+                  </button>
+                )}
               </div>
             ))}
             <div ref={messagesEndRef} />
           </div>
 
           {/* Suggestion Chips */}
-          <div style={{ padding: '0.5rem 1rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', borderTop: '1px solid rgba(255,215,0,0.2)', background: 'rgba(0,0,0,0.05)' }}>
+          <div style={{ padding: '0.5rem 1rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem', borderTop: '1px solid rgba(255,215,0,0.2)', background: 'white' }}>
              {data.suggestions.map((s, i) => (
                <button 
                   key={i} 
@@ -173,14 +217,14 @@ const TshumaChatbot = () => {
                     fontSize: '0.7rem', 
                     padding: '0.4rem 0.8rem', 
                     borderRadius: '20px', 
-                    border: '1px solid rgba(255,215,0,0.3)', 
-                    background: 'rgba(0, 127, 255, 0.1)', 
-                    color: '#FFD700',
+                    border: '1px solid #007FFF', 
+                    background: 'rgba(0, 127, 255, 0.05)', 
+                    color: '#007FFF',
                     cursor: 'pointer',
                     transition: 'all 0.2s'
                   }}
-                  onMouseOver={(e) => e.target.style.background = 'rgba(0, 127, 255, 0.3)'}
-                  onMouseOut={(e) => e.target.style.background = 'rgba(0, 127, 255, 0.1)'}
+                  onMouseOver={(e) => e.target.style.background = 'rgba(0, 127, 255, 0.15)'}
+                  onMouseOut={(e) => e.target.style.background = 'rgba(0, 127, 255, 0.05)'}
                >
                  {s}
                </button>
@@ -195,7 +239,7 @@ const TshumaChatbot = () => {
                onChange={(e) => setInput(e.target.value)}
                onKeyPress={(e) => e.key === 'Enter' && handleSend(input)}
                placeholder={lang === 'en' ? "Type a question..." : "Posez une question..."}
-               style={{ flex: 1, padding: '0.6rem 1rem', borderRadius: '40px', border: '1px solid var(--glass-border)', background: 'rgba(255,255,255,0.03)', color: 'var(--text-primary)', outline: 'none' }}
+               style={{ flex: 1, padding: '0.6rem 1rem', borderRadius: '40px', border: '1px solid var(--glass-border)', background: 'white', color: 'black', outline: 'none' }}
              />
              <button 
                 onClick={() => handleSend(input)}

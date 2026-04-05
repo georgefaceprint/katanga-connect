@@ -3,6 +3,7 @@ export const exchangeRate = 2500; // 1 USD = 2500 CDF
 export const commonLocations = ["Lubumbashi", "Kolwezi", "Likasi", "Kipushi", "Kasumbalesa", "Kalemie", "Fungurume", "Mutshatsha", "Goma (via flight)"];
 export const allActivitiesAmenities = ["Wildlife Viewing", "Botanical Garden", "Guided Tours", "Hiking", "Waterfalls", "Camping", "Birdwatching", "Stadium Tour", "Quad Biking", "Cycling", "Fishing", "Local Food", "Crafts"];
 export const allHotelAmenities = ["Pool", "WiFi", "Gym", "Spa", "Restaurant", "AC", "Laundry", "Parking", "Meeting Rooms"];
+export const allCarAmenities = ["AC", "Unlimited KM", "Professional Driver", "4x4", "Insurance", "GPS"];
 
 export const translations = {
   en: {
@@ -55,7 +56,12 @@ export const translations = {
     typeResto: "Restaurant / Dining",
     typeCar: "Car Hire / Transport",
     fleetSize: "Fleet Size (Vehicles)",
-    seatingCapacity: "Seating Capacity"
+    seatingCapacity: "Seating Capacity",
+    carHire: "Car Hire & Transport",
+    dailyRate: "Daily Rate",
+    driverIncluded: "Professional Driver",
+    manual: "Manual",
+    automatic: "Automatic"
   },
   fr: {
     portalTitle: "Portail Destination Katanga",
@@ -107,7 +113,12 @@ export const translations = {
     typeResto: "Restaurant / Gastronomie",
     typeCar: "Location de Voitures / Transport",
     fleetSize: "Taille de la Flotte (Véhicules)",
-    seatingCapacity: "Capacité d'Accueil"
+    seatingCapacity: "Capacité d'Accueil",
+    carHire: "Location de Voitures",
+    dailyRate: "Tarif Journalier",
+    driverIncluded: "Chauffeur Professionnel",
+    manual: "Manuelle",
+    automatic: "Automatique"
   }
 };
 
@@ -519,6 +530,60 @@ export const historicalSites = [
       en: "The most unique skyline feature in Lubumbashi. A surreal witness to the scale of global mining operations.",
       fr: "La caractéristique la plus unique de l'horizon de Lubumbashi. Un témoin irréel de l'ampleur des opérations minières."
     },
+    status: "Approved"
+  }
+];
+
+export const carHire = [
+  {
+    id: 501,
+    name: "Toyota Land Cruiser V8",
+    city: "Lubumbashi",
+    proximity: ["City", "Airport"],
+    rating: 5,
+    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=1000",
+    description: {
+      en: "Luxury SUV perfect for rugged Katanga terrain. Includes professional driver.",
+      fr: "SUV de luxe parfait pour le terrain accidenté du Katanga. Comprend un chauffeur professionnel."
+    },
+    priceUSD: 250,
+    amenities: ["AC", "4x4", "Professional Driver", "Insurance"],
+    transmission: "Automatic",
+    capacity: 7,
+    status: "Approved"
+  },
+  {
+    id: 502,
+    name: "Hyundai Santa Fe",
+    city: "Kolwezi",
+    proximity: ["City Center"],
+    rating: 4,
+    image: "https://images.unsplash.com/photo-1567818735868-e71b99932e29?auto=format&fit=crop&q=80&w=1000",
+    description: {
+      en: "Comfortable and modern SUV for city travel and business trips.",
+      fr: "SUV confortable et moderne pour les déplacements en ville et les voyages d'affaires."
+    },
+    priceUSD: 140,
+    amenities: ["AC", "Automatic", "GPS", "Insurance"],
+    transmission: "Automatic",
+    capacity: 5,
+    status: "Approved"
+  },
+  {
+    id: 503,
+    name: "Toyota Hilux Pickup",
+    city: "Likasi",
+    proximity: ["Mine Roads"],
+    rating: 4,
+    image: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=1000",
+    description: {
+      en: "The workhorse of the Copperbelt. Reliable for visiting mine facilities.",
+      fr: "Le cheval de trait de la Copperbelt. Fiable pour visiter les installations minières."
+    },
+    priceUSD: 180,
+    amenities: ["4x4", "Stick Shift", "Unlimited KM"],
+    transmission: "Manual",
+    capacity: 5,
     status: "Approved"
   }
 ];
