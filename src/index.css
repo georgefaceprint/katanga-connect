@@ -33,7 +33,13 @@ h1, h2, h3, .brand-font {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
 }
 
 /* Glassmorphism Classes */
@@ -49,6 +55,7 @@ h1, h2, h3, .brand-font {
 .copper-gradient {
   background: linear-gradient(135deg, #B87333 0%, #8B4513 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -115,4 +122,60 @@ h1, h2, h3, .brand-font {
   font-weight: 800;
   margin: 0.5rem 0;
   color: var(--secondary);
+}
+
+/* Mobile Responsiveness Improvements */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .hero-section {
+    padding: 3rem 1rem !important;
+  }
+
+  .hero-section h1 {
+    font-size: 2.2rem !important;
+  }
+
+  .hero-section p {
+    font-size: 1rem !important;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .glass {
+    border-radius: 16px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  header {
+    padding: 0.8rem 1rem !important;
+  }
+
+  .brand h2 {
+    font-size: 1.2rem !important;
+  }
+
+  nav {
+    gap: 0.5rem !important;
+  }
+
+  .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  /* Booking Panel scaling */
+  .booking-panel {
+    width: 95% !important;
+    max-height: 90vh !important;
+    padding: 1rem !important;
+  }
 }

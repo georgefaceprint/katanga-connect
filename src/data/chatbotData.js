@@ -4,64 +4,70 @@ export const chatbotData = {
     reset: "Conversation reset. How else can I assist you?",
     noMatch: "I'm not quite sure about that. Try asking about 'tax', 'hotels', or 'stadium distance'.",
     suggestions: [
-      "How far is TP Mazembe stadium?",
-      "What is the tourism tax?",
-      "Best hotel in Lubumbashi?",
-      "Tell me about Lumumba's death place"
+      "How can I list my business?",
+      "Weekend getaway ideas?",
+      "Why is it called 'Copperbelt'?",
+      "Tourism tax and VAT?",
+      "Distance to Mazembe Stadium?"
     ],
     intents: [
       {
-        keywords: ["tax", "levy", "commission", "fee"],
-        answer: "A flat 2% Provincial Tourism Tax and 16% VAT are applied to all bookings. These are automatically remitted to the Katanga Provincial Government."
+        keywords: ["tax", "levy", "commission", "fee", "vat", "tva"],
+        answer: "A flat 2% Provincial Tourism Tax and 16% VAT apply. Our portal handles automatic remittance to the Katanga Provincial Government to ensure your business remains 100% compliant."
       },
       {
-        keywords: ["stadium", "tp mazembe", "mazembe", "football"],
-        answer: "TP Mazembe Stadium is located in the Kamalondo commune, approximately 4.5 km from Lubumbashi City Center."
+        keywords: ["join", "onboard", "register", "list my", "business", "provider"],
+        answer: "Welcome partner! Use the 'Register Business' button in the header. We accept Hotels, Restaurants, Tour Operators, and Car Hire. Benefits include government certification, automated tax handling, and global visibility."
       },
       {
-        keywords: ["zoo", "animals", "botanical"],
-        answer: "The Lubumbashi Zoo is a 30-hectare park in the city center. It's one of the city's top attractions for families."
+        keywords: ["holiday", "vacation", "weekend", "getaway", "visit", "trip"],
+        answer: "For a weekend, try the Kipopo Lake for relaxation or the Upemba National Park for wildlife. If you love history, a 'Mining Route' tour in Kolwezi is a must-see journey through the world's richest cobalt deposits!"
       },
       {
-        keywords: ["lumumba", "shilatembo", "death", "hero"],
-        answer: "Patrice Lumumba's execution site is at Shilatembo, on the road to Likasi. It's a site of national heritage."
+        keywords: ["fact", "trivia", "history", "copper", "name", "origin"],
+        answer: "Fun Fact: Katanga produces over 60% of the world's cobalt! The name 'Katanga' comes from 'M'siri's' kingdom. The region has been the economic heartbeat of Central Africa for over a century."
       },
       {
-        keywords: ["hotel", "stay", "accommodation"],
-        answer: "The Pullman Grand Karavia and Novotel are top-tier choices in Lubumbashi. For Kolwezi, Hotel Tumbatumba is highly recommended."
+        keywords: ["stadium", "tp mazembe", "mazembe", "football", "soccer"],
+        answer: "The iconic TP Mazembe Stadium is in Kamalondo. It's the home of the 'Ravens' and a symbol of Katangan pride. It's about 4.5km from the city center."
+      },
+      {
+        keywords: ["zoo", "animals", "plants", "nature"],
+        answer: "The Lubumbashi Zoo is perfect for families. It houses lions, primates, and a diverse botanical collection. It's a green lung right in the middle of our copper city."
       }
     ]
   },
   fr: {
-    welcome: "Bonjour, je suis Tshuma ! Comment puis-je vous aider à explorer le Katanga aujourd'hui ?",
-    reset: "Conversation réinitialisée. Comment puis-je vous aider d'autre ?",
-    noMatch: "Je ne suis pas tout à fait sûr de cela. Essayez de poser des questions sur 'la taxe', 'les hôtels' ou 'la distance du stade'.",
+    welcome: "Bonjour, je suis Tshuma ! Je suis votre concierge Katangais. Comment puis-je vous aider ?",
+    reset: "Conversation réinitialisée. Prêt pour une nouvelle aventure ?",
+    noMatch: "Je n'ai pas encore cette information. Essayez de demander 'comment rejoindre', 'idées vacances' ou 'faits amusants'.",
     suggestions: [
-      "À quelle distance se trouve le stade TP Mazembe ?",
-      "Quelle est la taxe de tourisme ?",
-      "Meilleur hôtel à Lubumbashi ?",
-      "L'histoire de la mort de Lumumba"
+      "Comment lister mon entreprise ?",
+      "Idées pour un week-end ?",
+      "Pourquoi le 'Copperbelt' ?",
+      "Taxe de tourisme et TVA ?",
+      "Distance au Stade Mazembe ?"
     ],
     intents: [
       {
-        keywords: ["taxe", "levée", "commission", "frais"],
-        answer: "Une taxe de tourisme provinciale forfaitaire de 2% et une TVA de 16% s'appliquent à toutes les réservations."
+        keywords: ["taxe", "frais", "tva", "commission", "redevance"],
+        answer: "Une taxe de tourisme provinciale de 2% et une TVA de 16% s'appliquent. Notre portail gère automatiquement le versement au Gouvernement Provincial du Katanga."
       },
       {
-        keywords: ["stade", "tp mazembe", "mazembe", "football"],
-        answer: "Le stade TP Mazembe est situé dans la commune de Kamalondo, à environ 4,5 km du centre-ville de Lubumbashi."
+        keywords: ["rejoindre", "enregistrer", "inscrire", "entreprise", "prestataire", "lister"],
+        answer: "Bienvenue partenaire ! Utilisez le bouton 'Enregistrer une Entreprise'. Nous acceptons les Hôtels, Restos, et Agences. Les avantages incluent la certification gouvernementale et une visibilité mondiale."
       },
       {
-        keywords: ["zoo", "animaux", "botanique"],
-        answer: "Le zoo de Lubumbashi est un parc de 30 hectares au centre-ville. C'est l'une des principales attractions de la ville."
+        keywords: ["vacances", "weekend", "séjour", "visiter", "voyage", "idées"],
+        answer: "Pour un week-end, essayez le Lac de Kipopo pour la détente ou le Parc National de l'Upemba. Pour les passionnés d'histoire, un tour de la 'Route des Mines' à Kolwezi est incontournable !"
       },
       {
-        keywords: ["lumumba", "shilatembo", "mort", "héros"],
-        answer: "Le site d'exécution de Patrice Lumumba se trouve à Shilatembo, sur la route de Likasi. C'est un site du patrimoine national."
+        keywords: ["fait", "histoire", "cuivre", "nom", "origine", "culture"],
+        answer: "Le saviez-vous ? Le Katanga produit plus de 60% du cobalt mondial ! Le nom vient du royaume de M'siri. C'est le poumon économique de l'Afrique Centrale depuis plus d'un siècle."
       },
       {
-        keywords: ["hôtel", "séjour", "hébergement"],
-        answer: "Le Pullman Grand Karavia et le Novotel sont des choix de premier ordre à Lubumbashi. Pour Kolwezi, l'Hôtel Tumbatumba est fortement recommandé."
+        keywords: ["stade", "tp mazembe", "mazembe", "football", "sport"],
+        answer: "L'emblématique stade TP Mazembe se trouve à Kamalondo. C'est la maison des 'Corbeaux' et un symbole de la fierté Katangaise. À 4,5 km du centre-ville."
       }
     ]
   }
