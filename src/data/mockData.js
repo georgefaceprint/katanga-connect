@@ -328,6 +328,23 @@ export const historicalSites = [
       fr: "Rendez hommage à un héros national et réfléchissez au parcours du Congo vers l'indépendance. Le site présente des monuments et des plaques commémoratives."
     },
     status: "Approved"
+  },
+  {
+    id: 404,
+    name: "Cathédrale Saints Pierre et Paul",
+    city: "Lubumbashi",
+    proximity: ["City Center"],
+    rating: 4,
+    image: "https://images.unsplash.com/photo-1548013146-72479768b921?auto=format&fit=crop&q=80&w=1000",
+    history: {
+      en: "A beautiful Romanesque-style cathedral built in the 1920s during the colonial era. It is one of the most prominent landmarks in Lubumbashi.",
+      fr: "Une magnifique cathédrale de style roman construite dans les années 1920 à l'époque coloniale. C'est l'un des monuments les plus importants de Lubumbashi."
+    },
+    whyVisit: {
+      en: "Admire the stunning architecture and peaceful atmosphere. It's a key part of the city's religious and architectural heritage.",
+      fr: "Admirez l'architecture époustouflante et l'atmosphère paisible. C'est un élément clé du patrimoine religieux et architectural de la ville."
+    },
+    status: "Approved"
   }
 ];
 
