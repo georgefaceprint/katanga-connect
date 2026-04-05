@@ -4,7 +4,7 @@ import { translations, exchangeRate } from '../data/mockData';
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState('fr');
   const [currency, setCurrency] = useState('USD');
   const [cart, setCart] = useState([]);
   const [activeCategory, setActiveCategory] = useState('stays'); // stays, activities, weddings
