@@ -43,7 +43,12 @@ export const translations = {
     location: "Location",
     onboardNav: "Register Business",
     submitApp: "Submit to Inspectors",
-    facilitiesLabel: "Room Types & Count"
+    facilitiesLabel: "Room Types & Count",
+    priceRange: "Price Range",
+    minRating: "Min Rating",
+    sortBy: "Sort By",
+    results: "results",
+    search: "Search"
   },
   fr: {
     portalTitle: "Portail Destination Katanga",
@@ -83,7 +88,12 @@ export const translations = {
     location: "Emplacement",
     onboardNav: "Enregistrer une Entreprise",
     submitApp: "Soumettre aux Inspecteurs",
-    facilitiesLabel: "Types de Chambres et Quantité"
+    facilitiesLabel: "Types de Chambres et Quantité",
+    priceRange: "Gamme de Prix",
+    minRating: "Note Min",
+    sortBy: "Trier par",
+    results: "résultats",
+    search: "Rechercher"
   }
 };
 
