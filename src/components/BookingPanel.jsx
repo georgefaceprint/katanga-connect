@@ -130,9 +130,7 @@ const BookingPanel = ({ hotel, category, onClose }) => {
                 <span style={{ color: 'var(--primary)' }}>{formatPrice(total)}</span>
             </div>
 
-            <div style={{ fontSize: '0.8rem', background: '#ffe4e6', color: '#be123c', padding: '0.8rem', borderRadius: '8px', marginBottom: '1rem', textAlign: 'center' }}>
-                <strong>Note:</strong> {t('payCash')}
-            </div>
+            <div style={{ marginBottom: '1rem' }} />
 
             <button 
                 className="btn btn-primary" 

@@ -18,7 +18,7 @@ export const translations = {
     tourismLevy: "Tourism Tax (2%)",
     vat: "VAT (16%)",
     total: "Total",
-    payCash: "Pay 80% Cash (USD) at Property",
+
     confirmBooking: "Confirm Booking",
     revenueTracking: "Provincial Revenue Tracking",
     totalCollected: "Total Tax Collected",
@@ -70,7 +70,7 @@ export const translations = {
     tourismLevy: "Taxe de Tourisme (2%)",
     vat: "TVA (16%)",
     total: "Total",
-    payCash: "Payer 80% en Espèces (USD) sur Place",
+
     confirmBooking: "Confirmer la Réservation",
     revenueTracking: "Suivi des Revenus Provinciaux",
     totalCollected: "Total des Taxes Perçues",
